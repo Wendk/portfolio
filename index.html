@@ -1,154 +1,809 @@
 <!DOCTYPE html>
-
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Portfolio - TAPSOBA Wendkuuni Ben Ahmad</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+  <title>Portfolio – TAPSOBA Wendkuuni Ben Ahmad</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
   <style>
-    * { margin:0; padding:0; box-sizing:border-box; }
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #0f172a, #020617);
-      color: #e2e8f0;
+    :root {
+      --green-deep:   #0d3321;
+      --green-mid:    #1a5c3a;
+      --green-bright: #2ecc71;
+      --green-glow:   #52e08a;
+      --earth:        #b5651d;
+      --earth-light:  #e8a96a;
+      --sky:          #38bdf8;
+      --dark-bg:      #070e0a;
+      --dark-card:    #0e1e14;
+      --dark-card2:   #132019;
+      --text:         #e8f5ec;
+      --text-muted:   #7aad8e;
+      --accent-line:  rgba(46,204,113,0.15);
     }
 
-```
-header {
-  text-align:center;
-  padding:60px 20px;
-}
+    *, *::before, *::after { margin:0; padding:0; box-sizing:border-box; }
 
-header img {
-  width:150px;
-  height:150px;
-  border-radius:50%;
-  object-fit:cover;
-  border:3px solid #38bdf8;
-  margin-bottom:20px;
-}
+    html { scroll-behavior: smooth; }
 
-header h1 { font-size:2.2rem; }
-header p { color:#94a3b8; }
+    body {
+      font-family: 'Lato', sans-serif;
+      background: var(--dark-bg);
+      color: var(--text);
+      overflow-x: hidden;
+    }
 
-.btn {
-  display:inline-block;
-  margin-top:15px;
-  padding:10px 20px;
-  background:#38bdf8;
-  color:#020617;
-  border-radius:25px;
-  font-weight:600;
-}
+    /* ── NOISE TEXTURE OVERLAY ── */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
 
-section {
-  max-width:1000px;
-  margin:auto;
-  padding:40px 20px;
-}
+    /* ── NAV ── */
+    nav {
+      position: fixed; top:0; left:0; right:0; z-index:100;
+      display: flex; justify-content: space-between; align-items: center;
+      padding: 16px 48px;
+      background: rgba(7,14,10,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--accent-line);
+    }
+    .nav-logo {
+      font-family: 'Playfair Display', serif;
+      font-weight: 800; font-size: 1.1rem;
+      color: var(--green-bright);
+      letter-spacing: -0.02em;
+    }
+    .nav-links { display:flex; gap:32px; list-style:none; }
+    .nav-links a {
+      font-size:0.85rem; font-weight:500;
+      color: var(--text-muted);
+      text-decoration: none;
+      transition: color 0.2s;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+    .nav-links a:hover { color: var(--green-bright); }
 
-h2 {
-  color:#38bdf8;
-  margin-bottom:20px;
-}
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 120px 48px 80px;
+      overflow: hidden;
+    }
 
-.grid {
-  display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
-  gap:20px;
-}
+    /* animated radial glow behind hero */
+    .hero-glow {
+      position: absolute;
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(46,204,113,0.12) 0%, transparent 70%);
+      top: -100px; right: -150px;
+      animation: pulse 6s ease-in-out infinite alternate;
+    }
+    .hero-glow2 {
+      position: absolute;
+      width: 400px; height: 400px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(181,101,29,0.1) 0%, transparent 70%);
+      bottom: 0; left: 0;
+      animation: pulse 8s ease-in-out infinite alternate-reverse;
+    }
+    @keyframes pulse {
+      from { transform: scale(1) translateY(0); }
+      to   { transform: scale(1.15) translateY(-20px); }
+    }
 
-.card {
-  background:#1e293b;
-  padding:20px;
-  border-radius:15px;
-  transition:0.3s;
-}
+    /* grid lines background */
+    .hero::after {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(46,204,113,0.04) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(46,204,113,0.04) 1px, transparent 1px);
+      background-size: 60px 60px;
+      pointer-events: none;
+    }
 
-.card:hover {
-  transform:translateY(-5px);
-  box-shadow:0 10px 20px rgba(0,0,0,0.3);
-}
+    .hero-content {
+      position: relative; z-index: 1;
+      max-width: 680px;
+    }
 
-footer {
-  text-align:center;
-  padding:30px;
-  background:#020617;
-  color:#94a3b8;
-}
+    .hero-tag {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(46,204,113,0.1);
+      border: 1px solid rgba(46,204,113,0.25);
+      border-radius: 100px;
+      padding: 6px 16px;
+      font-size: 0.78rem; font-weight: 500;
+      color: var(--green-bright);
+      letter-spacing: 0.08em; text-transform: uppercase;
+      margin-bottom: 28px;
+    }
+    .hero-tag span {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--green-bright);
+      animation: blink 2s ease-in-out infinite;
+    }
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.2} }
 
-a { color:#38bdf8; text-decoration:none; }
-```
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 4rem);
+      font-weight: 800;
+      line-height: 1.08;
+      letter-spacing: -0.03em;
+      margin-bottom: 20px;
+    }
+    .hero h1 .line-green { color: var(--green-bright); }
+    .hero h1 .line-earth { color: var(--earth-light); }
 
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      line-height: 1.7;
+      max-width: 500px;
+      margin-bottom: 40px;
+    }
+
+    .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px;
+      background: var(--green-bright);
+      color: var(--dark-bg);
+      border-radius: 100px;
+      font-weight: 600; font-size: 0.9rem;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-primary:hover { background: var(--green-glow); transform: translateY(-2px); }
+    .btn-secondary {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 13px 28px;
+      background: transparent;
+      border: 1px solid rgba(46,204,113,0.35);
+      color: var(--green-bright);
+      border-radius: 100px;
+      font-weight: 600; font-size: 0.9rem;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .btn-secondary:hover { background: rgba(46,204,113,0.07); border-color: var(--green-bright); }
+
+    /* Avatar blob */
+    .hero-avatar {
+      position: absolute; right: 80px; top: 50%; transform: translateY(-50%);
+      z-index: 1;
+    }
+    .avatar-wrap {
+      width: 260px; height: 260px;
+      border-radius: 40% 60% 55% 45% / 45% 55% 65% 35%;
+      border: 2px solid rgba(46,204,113,0.35);
+      overflow: hidden;
+      animation: morph 8s ease-in-out infinite alternate;
+      background: var(--dark-card2);
+    }
+    @keyframes morph {
+      0%   { border-radius: 40% 60% 55% 45% / 45% 55% 65% 35%; }
+      50%  { border-radius: 55% 45% 40% 60% / 60% 40% 55% 45%; }
+      100% { border-radius: 35% 65% 60% 40% / 50% 60% 40% 50%; }
+    }
+    .avatar-wrap img { width:100%; height:100%; object-fit:cover; }
+    .avatar-ring {
+      position: absolute; inset: -16px;
+      border-radius: 50%;
+      border: 1px dashed rgba(46,204,113,0.2);
+      animation: spin 20s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* ── STATS ROW ── */
+    .stats-bar {
+      position: relative; z-index: 1;
+      background: var(--dark-card);
+      border-top: 1px solid var(--accent-line);
+      border-bottom: 1px solid var(--accent-line);
+    }
+    .stats-inner {
+      max-width: 1100px; margin: auto;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      divide: row;
+    }
+    .stat-item {
+      padding: 36px 32px;
+      border-right: 1px solid var(--accent-line);
+      text-align: center;
+    }
+    .stat-item:last-child { border-right: none; }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem; font-weight: 800;
+      color: var(--green-bright);
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .stat-label {
+      margin-top: 6px;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+    }
+
+    /* ── SECTIONS ── */
+    .section {
+      max-width: 1100px;
+      margin: auto;
+      padding: 100px 48px;
+    }
+
+    .section-label {
+      display: inline-flex; align-items: center; gap: 10px;
+      font-size: 0.75rem; font-weight: 500;
+      color: var(--green-bright);
+      text-transform: uppercase; letter-spacing: 0.12em;
+      margin-bottom: 16px;
+    }
+    .section-label::before {
+      content: '';
+      display: block; width: 28px; height: 1px;
+      background: var(--green-bright);
+    }
+
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3vw, 2.8rem);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 56px;
+    }
+
+    /* ── ABOUT ── */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 60px;
+      align-items: center;
+    }
+    .about-text p {
+      font-size: 1.05rem;
+      line-height: 1.85;
+      color: var(--text-muted);
+    }
+    .about-text p + p { margin-top: 16px; }
+    .highlight { color: var(--text); font-weight: 500; }
+
+    /* skill bars */
+    .skill-bars { display:flex; flex-direction:column; gap:16px; }
+    .skill-bar-wrap {}
+    .skill-bar-header {
+      display: flex; justify-content: space-between;
+      font-size: 0.82rem; font-weight: 500;
+      margin-bottom: 8px;
+    }
+    .skill-bar-track {
+      height: 5px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 100px;
+      overflow: hidden;
+    }
+    .skill-bar-fill {
+      height: 100%;
+      border-radius: 100px;
+      background: linear-gradient(90deg, var(--green-mid), var(--green-bright));
+      animation: fillBar 1.4s ease forwards;
+      transform-origin: left;
+    }
+    @keyframes fillBar { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+
+    /* ── SERVICES ── */
+    .services-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2px;
+      background: var(--accent-line);
+      border: 1px solid var(--accent-line);
+      border-radius: 20px;
+      overflow: hidden;
+    }
+    .service-card {
+      background: var(--dark-card);
+      padding: 36px 28px;
+      transition: background 0.25s;
+      cursor: default;
+    }
+    .service-card:hover { background: var(--dark-card2); }
+    .service-icon {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      background: rgba(46,204,113,0.12);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+      margin-bottom: 20px;
+    }
+    .service-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .service-card p {
+      font-size: 0.85rem; color: var(--text-muted); line-height: 1.65;
+    }
+
+    /* ── PROJECTS ── */
+    .projects-list { display:flex; flex-direction:column; gap:2px; }
+    .project-row {
+      display: grid;
+      grid-template-columns: 80px 1fr auto;
+      align-items: center;
+      gap: 32px;
+      padding: 28px 32px;
+      background: var(--dark-card);
+      border-radius: 0;
+      border-left: 3px solid transparent;
+      transition: border-color 0.2s, background 0.2s;
+      cursor: default;
+    }
+    .project-row:first-child { border-radius: 20px 20px 0 0; }
+    .project-row:last-child  { border-radius: 0 0 20px 20px; }
+    .project-row:hover {
+      border-left-color: var(--green-bright);
+      background: var(--dark-card2);
+    }
+    .project-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 800;
+      color: rgba(46,204,113,0.18);
+      line-height: 1;
+    }
+    .project-info h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem; font-weight: 700;
+      margin-bottom: 6px;
+    }
+    .project-info p { font-size: 0.88rem; color: var(--text-muted); line-height: 1.6; }
+    .project-tag {
+      display: inline-block;
+      padding: 5px 14px;
+      border-radius: 100px;
+      font-size: 0.75rem; font-weight: 500;
+      white-space: nowrap;
+    }
+    .tag-tech   { background: rgba(56,189,248,0.12); color: var(--sky); }
+    .tag-agri   { background: rgba(46,204,113,0.12); color: var(--green-bright); }
+    .tag-elevage{ background: rgba(232,169,106,0.15); color: var(--earth-light); }
+
+    /* ── WHY ── */
+    .why-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    .why-card {
+      padding: 36px 32px;
+      background: var(--dark-card);
+      border-radius: 20px;
+      border: 1px solid var(--accent-line);
+      display: flex; gap: 20px; align-items: flex-start;
+      transition: border-color 0.25s;
+    }
+    .why-card:hover { border-color: rgba(46,204,113,0.35); }
+    .why-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 3rem; font-weight: 800;
+      color: rgba(46,204,113,0.12);
+      line-height: 1; flex-shrink: 0;
+    }
+    .why-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem; font-weight: 700;
+      margin-bottom: 10px;
+    }
+    .why-card p { font-size: 0.87rem; color: var(--text-muted); line-height: 1.65; }
+
+    /* ── TECH CHART ── */
+    .chart-section {
+      background: var(--dark-card);
+      border-top: 1px solid var(--accent-line);
+      border-bottom: 1px solid var(--accent-line);
+    }
+    .chart-inner {
+      max-width: 1100px; margin: auto;
+      padding: 80px 48px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .chart-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem; font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .chart-sub { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 36px; }
+    .donut-wrap {
+      position: relative; width: 220px; height: 220px;
+      margin: auto;
+    }
+    .donut-wrap svg { width:100%; height:100%; transform: rotate(-90deg); }
+    .donut-center {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      text-align: center;
+    }
+    .donut-center strong {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem; font-weight: 800; color: var(--green-bright);
+    }
+    .donut-center span { font-size: 0.75rem; color: var(--text-muted); }
+    .donut-legend { margin-top: 28px; display:flex; flex-wrap:wrap; gap: 16px; justify-content: center; }
+    .legend-item { display:flex; align-items:center; gap:8px; font-size:0.82rem; }
+    .legend-dot { width:10px; height:10px; border-radius:50%; flex-shrink:0; }
+
+    /* ── CONTACT ── */
+    .contact-wrap {
+      max-width: 700px; margin: auto;
+      text-align: center;
+    }
+    .contact-cards {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-top: 40px;
+      text-align: left;
+    }
+    .contact-card {
+      background: var(--dark-card);
+      border: 1px solid var(--accent-line);
+      border-radius: 16px;
+      padding: 24px;
+      text-decoration: none;
+      color: var(--text);
+      transition: border-color 0.2s, background 0.2s;
+      display: flex; flex-direction: column; gap: 8px;
+    }
+    .contact-card:hover { border-color: var(--green-bright); background: var(--dark-card2); }
+    .contact-card-icon { font-size: 1.4rem; }
+    .contact-card-label { font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.08em; }
+    .contact-card-value { font-weight: 500; font-size: 0.92rem; color: var(--green-bright); word-break: break-all; }
+
+    /* ── FOOTER ── */
+    footer {
+      border-top: 1px solid var(--accent-line);
+      padding: 40px 48px;
+      display: flex; justify-content: space-between; align-items: center;
+    }
+    footer p { color: var(--text-muted); font-size: 0.82rem; }
+    .footer-logo {
+      font-family: 'Playfair Display', serif; font-weight: 800;
+      font-size: 0.95rem; color: var(--green-bright);
+    }
+
+    /* ── DIVIDER ── */
+    .divider {
+      height: 1px;
+      background: var(--accent-line);
+      max-width: 1100px;
+      margin: auto;
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 900px) {
+      nav { padding: 14px 24px; }
+      .nav-links { display:none; }
+      .hero { padding: 100px 24px 60px; flex-direction: column; }
+      .hero-avatar { position:relative; right:auto; top:auto; transform:none; margin-top:40px; }
+      .section { padding: 70px 24px; }
+      .stats-inner { grid-template-columns: repeat(2, 1fr); }
+      .about-grid { grid-template-columns: 1fr; }
+      .services-grid { grid-template-columns: 1fr 1fr; }
+      .chart-inner { grid-template-columns: 1fr; gap: 40px; }
+      .why-grid { grid-template-columns: 1fr; }
+      .contact-cards { grid-template-columns: 1fr; }
+      footer { flex-direction:column; gap:12px; text-align:center; padding:32px 24px; }
+    }
+    @media (max-width: 580px) {
+      .services-grid { grid-template-columns: 1fr; }
+      .project-row { grid-template-columns: 50px 1fr; }
+      .project-tag { display:none; }
+    }
   </style>
 </head>
 <body>
 
-<header>
-  <img src="photo.png" alt="Photo de Wendkuuni">
-  <h1>TAPSOBA Wendkuuni Ben Ahmad</h1>
-  <p>Développement informatique | Solutions agricoles | Accompagnement de projets</p>
-  <a class="btn" href="https://wa.me/22671911744">Me contacter sur WhatsApp</a>
-</header>
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Wendkuuni</div>
+  <ul class="nav-links">
+    <li><a href="#apropos">À propos</a></li>
+    <li><a href="#services">Services</a></li>
+    <li><a href="#projets">Projets</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
 
-<section>
-  <h2>À propos</h2>
-  <div class="card">
-    <p>Je suis analyste programmeur et entrepreneur spécialisé dans l’agriculture. J’accompagne les particuliers, entreprises et porteurs de projets à mettre en place des solutions informatiques et agricoles efficaces, rentables et adaptées au contexte africain.</p>
-  </div>
-</section>
-
-<section>
-  <h2>Services</h2>
-  <div class="grid">
-    <div class="card">Création d’applications (Android, Web)</div>
-    <div class="card">Mise en place de systèmes agricoles</div>
-    <div class="card">Gestion et suivi de fermes</div>
-    <div class="card">Conseil en agrobusiness</div>
-    <div class="card">Installation systèmes & réseaux</div>
-    <div class="card">Formation technique</div>
-  </div>
-</section>
-
-<section>
-  <h2>Projets</h2>
-  <div class="grid">
-    <div class="card">
-      <h3>CultivaTech</h3>
-      <p>Application mobile pour digitaliser l’agriculture et améliorer la productivité.</p>
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-glow2"></div>
+  <div class="hero-content">
+    <div class="hero-tag">
+      <span></span> Disponible pour de nouveaux projets
     </div>
-    <div class="card">
-      <h3>Agrobusiness Wend-lakonta</h3>
-      <p>Accompagnement et gestion de projets agricoles professionnels.</p>
-    </div>
-    <div class="card">
-      <h3>Projet Maralfalfa</h3>
-      <p>Production de fourrage et solutions alimentaires pour élevage.</p>
+    <h1>
+      <span class="line-green">Informatique</span><br>
+      <span style="color:var(--text)">rencontre</span><br>
+      <span class="line-earth">l'Agriculture</span>
+    </h1>
+    <p class="hero-sub">
+      Analyste programmeur &amp; entrepreneur. Je construis des solutions numériques ancrées dans la réalité africaine — des applications mobiles aux systèmes agricoles durables.
+    </p>
+    <div class="hero-ctas">
+      <a class="btn-primary" href="https://wa.me/22671911744">
+        💬 WhatsApp
+      </a>
+      <a class="btn-secondary" href="#projets">
+        Voir mes projets →
+      </a>
     </div>
   </div>
-</section>
-
-<section>
-  <h2>Pourquoi me choisir ?</h2>
-  <div class="grid">
-    <div class="card">Double expertise : Informatique + Agriculture</div>
-    <div class="card">Solutions adaptées au contexte local</div>
-    <div class="card">Approche orientée résultats</div>
-    <div class="card">Accompagnement personnalisé</div>
+  <div class="hero-avatar">
+    <div class="avatar-ring"></div>
+    <div class="avatar-wrap">
+      <img src="photo.png" alt="TAPSOBA Wendkuuni Ben Ahmad" onerror="this.style.display='none'; this.parentNode.style.background='var(--green-deep)'; this.parentNode.innerHTML += '<div style=\'display:flex;align-items:center;justify-content:center;height:100%;font-family:Syne,sans-serif;font-size:3.5rem;color:var(--green-bright)\'>W</div>'">
+    </div>
   </div>
 </section>
 
-<section>
-  <h2>Contact</h2>
-  <div class="card">
-    <p>📞 +226 71911744</p>
-    <p>📧 wendkuunitapsoba@gmail.com</p>
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <div class="stat-num">3+</div>
+      <div class="stat-label">Projets actifs</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">2</div>
+      <div class="stat-label">Expertises clés</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">100%</div>
+      <div class="stat-label">Solutions locales</div>
+    </div>
+    <div class="stat-item">
+      <div class="stat-num">BF</div>
+      <div class="stat-label">Burkina Faso</div>
+    </div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section" id="apropos">
+  <div class="section-label">À propos</div>
+  <h2 class="section-title">Double expertise,<br>résultats concrets.</h2>
+  <div class="about-grid">
+    <div class="about-text">
+      <p>Je suis <span class="highlight">TAPSOBA Wendkuuni Ben Ahmad</span>, analyste programmeur et entrepreneur spécialisé dans l'agriculture. Mon positionnement unique : je comprends <span class="highlight">autant le code que le champ</span>.</p>
+      <p>J'accompagne les particuliers, les entreprises et les porteurs de projets à mettre en place des solutions informatiques et agricoles <span class="highlight">efficaces, rentables et adaptées</span> au contexte africain.</p>
+      <p>De la conception d'applications mobiles à la mise en place de fermes fourragères, je couvre tout le spectre du projet numérique-agricole.</p>
+    </div>
+    <div>
+      <div class="skill-bars">
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-header"><span>Développement Android & Web</span><span style="color:var(--green-bright)">90%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:90%"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-header"><span>Systèmes & Réseaux</span><span style="color:var(--green-bright)">80%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:80%"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-header"><span>Agrobusiness & Conseil</span><span style="color:var(--earth-light)">85%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:85%; background: linear-gradient(90deg, #7a3e0a, var(--earth-light))"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-header"><span>Gestion de projets</span><span style="color:var(--green-bright)">88%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:88%"></div></div>
+        </div>
+        <div class="skill-bar-wrap">
+          <div class="skill-bar-header"><span>Production fourragère</span><span style="color:var(--earth-light)">75%</span></div>
+          <div class="skill-bar-track"><div class="skill-bar-fill" style="width:75%; background: linear-gradient(90deg, #7a3e0a, var(--earth-light))"></div></div>
+        </div>
+      </div>
+    </div>
   </div>
 </section>
 
+<div class="divider"></div>
+
+<!-- SERVICES -->
+<section class="section" id="services">
+  <div class="section-label">Services</div>
+  <h2 class="section-title">Ce que je fais<br>pour vous.</h2>
+  <div class="services-grid">
+    <div class="service-card">
+      <div class="service-icon">📱</div>
+      <h3>Applications mobiles & web</h3>
+      <p>Développement d'applications Android et Web adaptées à vos besoins, du prototype au déploiement.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🌱</div>
+      <h3>Systèmes agricoles</h3>
+      <p>Mise en place de systèmes agricoles durables et rentables, pensés pour le contexte africain.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">📊</div>
+      <h3>Gestion & suivi de fermes</h3>
+      <p>Pilotage opérationnel des fermes : planification, suivi de production, tableaux de bord.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">💡</div>
+      <h3>Conseil en agrobusiness</h3>
+      <p>Accompagnement stratégique pour lancer ou optimiser votre activité agricole commerciale.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🖧</div>
+      <h3>Systèmes & réseaux</h3>
+      <p>Installation, configuration et maintenance de systèmes informatiques et infrastructures réseaux.</p>
+    </div>
+    <div class="service-card">
+      <div class="service-icon">🎓</div>
+      <h3>Formation technique</h3>
+      <p>Formation des équipes aux outils numériques agricoles, aux bonnes pratiques et aux technologies.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CHART SECTION -->
+<div class="chart-section">
+  <div class="chart-inner">
+    <div>
+      <div class="chart-title">Répartition de mon activité</div>
+      <div class="chart-sub">Un profil hybride au service de l'innovation agricole numérique.</div>
+      <div class="donut-legend">
+        <div class="legend-item"><div class="legend-dot" style="background:#2ecc71"></div>Développement (45%)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#e8a96a"></div>Agriculture (30%)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#38bdf8"></div>Conseil (15%)</div>
+        <div class="legend-item"><div class="legend-dot" style="background:#a78bfa"></div>Formation (10%)</div>
+      </div>
+    </div>
+    <div>
+      <div class="donut-wrap">
+        <svg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg">
+          <!-- stroke-dasharray = circumference * pct, rest -->
+          <!-- circumference of r=80 = 502.65 -->
+          <!-- Développement 45% = 226.2 -->
+          <circle cx="110" cy="110" r="80" fill="none" stroke="#0e1e14" stroke-width="28"/>
+          <circle cx="110" cy="110" r="80" fill="none" stroke="#2ecc71" stroke-width="28"
+                  stroke-dasharray="226.2 276.45" stroke-dashoffset="0" stroke-linecap="butt"/>
+          <!-- Agriculture 30% = 150.8, offset=226.2 negative -->
+          <circle cx="110" cy="110" r="80" fill="none" stroke="#e8a96a" stroke-width="28"
+                  stroke-dasharray="150.8 351.85" stroke-dashoffset="-226.2" stroke-linecap="butt"/>
+          <!-- Conseil 15% = 75.4, offset=377 -->
+          <circle cx="110" cy="110" r="80" fill="none" stroke="#38bdf8" stroke-width="28"
+                  stroke-dasharray="75.4 427.25" stroke-dashoffset="-377" stroke-linecap="butt"/>
+          <!-- Formation 10% = 50.26, offset=452.4 -->
+          <circle cx="110" cy="110" r="80" fill="none" stroke="#a78bfa" stroke-width="28"
+                  stroke-dasharray="50.26 452.39" stroke-dashoffset="-452.4" stroke-linecap="butt"/>
+        </svg>
+        <div class="donut-center">
+          <strong>4</strong>
+          <span>domaines<br>d'expertise</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PROJECTS -->
+<section class="section" id="projets">
+  <div class="section-label">Projets</div>
+  <h2 class="section-title">Travaux &amp;<br>réalisations.</h2>
+  <div class="projects-list">
+    <div class="project-row">
+      <div class="project-num">01</div>
+      <div class="project-info">
+        <h3>CultivaTech</h3>
+        <p>Application mobile dédiée à la digitalisation de l'agriculture. Permet aux agriculteurs de suivre leurs cultures, planifier les interventions et améliorer leur productivité grâce au numérique.</p>
+      </div>
+      <div class="project-tag tag-tech">Mobile · Android</div>
+    </div>
+    <div class="project-row">
+      <div class="project-num">02</div>
+      <div class="project-info">
+        <h3>Agrobusiness Wend-lakonta</h3>
+        <p>Accompagnement complet de porteurs de projets agricoles : business plan, mise en place opérationnelle, suivi de la rentabilité et gestion quotidienne de fermes professionnelles.</p>
+      </div>
+      <div class="project-tag tag-agri">Agrobusiness</div>
+    </div>
+    <div class="project-row">
+      <div class="project-num">03</div>
+      <div class="project-info">
+        <h3>Projet Maralfalfa</h3>
+        <p>Production intensive de Maralfalfa (fourrage haute performance) destinée à l'alimentation du bétail. Solution fourragère locale réduisant la dépendance aux intrants importés.</p>
+      </div>
+      <div class="project-tag tag-elevage">Élevage · Fourrage</div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- WHY -->
+<section class="section">
+  <div class="section-label">Pourquoi moi ?</div>
+  <h2 class="section-title">Des atouts<br>différenciants.</h2>
+  <div class="why-grid">
+    <div class="why-card">
+      <div class="why-num">01</div>
+      <div>
+        <h3>Double expertise unique</h3>
+        <p>Rare combinaison d'un bagage en informatique et en agriculture. Je comprends vos besoins des deux côtés et conçois des solutions qui fonctionnent réellement sur le terrain.</p>
+      </div>
+    </div>
+    <div class="why-card">
+      <div class="why-num">02</div>
+      <div>
+        <h3>Ancré dans le contexte local</h3>
+        <p>Toutes mes solutions sont pensées pour l'Afrique de l'Ouest : contraintes techniques, réalités économiques, disponibilité des ressources — rien n'est copié/collé de l'Occident.</p>
+      </div>
+    </div>
+    <div class="why-card">
+      <div class="why-num">03</div>
+      <div>
+        <h3>Approche orientée résultats</h3>
+        <p>Chaque projet débute par des objectifs mesurables. Je suis impliqué jusqu'à l'atteinte des résultats, pas seulement la livraison.</p>
+      </div>
+    </div>
+    <div class="why-card">
+      <div class="why-num">04</div>
+      <div>
+        <h3>Accompagnement personnalisé</h3>
+        <p>Pas de solution générique. J'écoute, j'analyse votre situation spécifique et co-construis avec vous un plan adapté à vos ressources et vos ambitions.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section class="section" id="contact" style="padding-top:0">
+  <div class="contact-wrap">
+    <div class="section-label" style="justify-content:center">Contact</div>
+    <h2 class="section-title" style="text-align:center">Travaillons<br>ensemble.</h2>
+    <p style="color:var(--text-muted); font-size:0.95rem">Un projet en tête ? Une idée à développer ? Contactez-moi directement et construisons quelque chose d'utile.</p>
+    <div class="contact-cards">
+      <a class="contact-card" href="https://wa.me/22671911744">
+        <div class="contact-card-icon">💬</div>
+        <div class="contact-card-label">WhatsApp</div>
+        <div class="contact-card-value">+226 71 91 17 44</div>
+      </a>
+      <a class="contact-card" href="tel:+22671911744">
+        <div class="contact-card-icon">📞</div>
+        <div class="contact-card-label">Téléphone</div>
+        <div class="contact-card-value">+226 71 91 17 44</div>
+      </a>
+      <a class="contact-card" href="mailto:wendkuunitapsoba@gmail.com" style="grid-column: 1 / -1">
+        <div class="contact-card-icon">📧</div>
+        <div class="contact-card-label">Email</div>
+        <div class="contact-card-value">wendkuunitapsoba@gmail.com</div>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
 <footer>
-  <p>© 2026 TAPSOBA Wendkuuni Ben Ahmad</p>
+  <div class="footer-logo">Wendkuuni</div>
+  <p>© 2026 TAPSOBA Wendkuuni Ben Ahmad — Burkina Faso</p>
+  <p style="color:var(--text-muted);font-size:0.8rem">Informatique × Agriculture</p>
 </footer>
 
 </body>
